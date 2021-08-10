@@ -1,9 +1,13 @@
 package com.turina1v.oboi.view
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.GridLayoutManager
 import com.turina1v.oboi.R
+import com.turina1v.oboi.data.network.PhotoItem
+import kotlinx.android.synthetic.main.activity_photo_list.*
+import kotlinx.android.synthetic.main.layout_loader.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class PhotoListActivity : AppCompatActivity() {
@@ -14,7 +18,13 @@ class PhotoListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_photo_list)
 
         viewModel.photoListData.observe(this) {
-            Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
+            loaderLayout.isVisible = false
+            initRecycler(it)
         }
+    }
+
+    private fun initRecycler(photos: List<PhotoItem>) {
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
+        recyclerView.adapter = PhotoListRecyclerAdapter(photos)
     }
 }
