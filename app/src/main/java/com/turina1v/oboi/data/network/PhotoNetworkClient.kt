@@ -1,6 +1,7 @@
-package com.turina1v.oboi.network
+package com.turina1v.oboi.data.network
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import com.turina1v.oboi.domain.SearchProps
 import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -18,30 +19,24 @@ class PhotoNetworkClient {
     }
 
     fun getPhotoList(
-        query: String? = null,
-        orientation: String? = null,
-        category: String? = null,
-        colors: String? = null,
-        editorsChoice: String? = null,
-        order: String? = null,
-        page: Int
+        searchProps: SearchProps
     ): Single<PhotoList> = photoApi.getPhotoList(
         API_KEY,
-        query,
+        searchProps.query,
         IMAGE_TYPE,
-        orientation,
-        category,
-        colors,
-        editorsChoice,
-        order,
+        searchProps.orientation,
+        searchProps.category,
+        searchProps.colors,
+        searchProps.editorsChoice,
+        searchProps.order,
         SAFE_SEARCH,
         PER_PAGE,
-        page.toString()
+        if (searchProps.page == null) null else searchProps.page.toString()
     )
 
     companion object {
         const val BASE_URL = "https://pixabay.com"
-        const val API_KEY = "16316299-ba7e12baf00b76dee8fff44c9"
+        const val API_KEY = "your_api_key"
         const val IMAGE_TYPE = "photo"
         const val SAFE_SEARCH = "true"
         const val PER_PAGE = "200"

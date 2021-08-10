@@ -1,4 +1,4 @@
-package com.turina1v.oboi.network
+package com.turina1v.oboi.data.network
 
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -17,6 +17,6 @@ interface PhotoApi {
         @Query("order") order: String?,
         @Query("safesearch") safesearch: String,
         @Query("per_page") perPage: String,
-        @Query("page") page: String
+        @Query("page") page: String?
     ): Single<PhotoList>
 }

@@ -1,15 +1,15 @@
-package com.turina1v.oboi.network
+package com.turina1v.oboi.data.network
 
 import com.google.gson.annotations.SerializedName
 
 data class PhotoList(
 
     @field:SerializedName("hits")
-    val hits: List<HitsItem?>? = null
+    val photos: List<PhotoItem>? = null
 
 )
 
-data class HitsItem(
+data class PhotoItem(
 
     @field:SerializedName("webformatURL")
     val webformatURL: String? = null,
