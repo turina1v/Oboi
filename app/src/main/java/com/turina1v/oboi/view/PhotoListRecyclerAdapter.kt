@@ -10,6 +10,7 @@ import com.turina1v.oboi.data.network.PhotoItem
 
 class PhotoListRecyclerAdapter : RecyclerView.Adapter<PhotoListRecyclerAdapter.PhotoItemViewHolder>() {
     private val photos = mutableListOf<PhotoItem>()
+    var onPhotoClickListener: OnPhotoClickListener? = null
 
     class PhotoItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var photoImageView: ImageView? = null
@@ -29,6 +30,9 @@ class PhotoListRecyclerAdapter : RecyclerView.Adapter<PhotoListRecyclerAdapter.P
         holder.photoImageView?.let { v ->
             photos[position].webformatURL?.let { url ->
                 ImageLoader.loadImage(v, url)
+                v.setOnClickListener{
+                    onPhotoClickListener?.onPhotoClick(url)
+                }
             }
         }
     }
