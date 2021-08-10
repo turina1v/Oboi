@@ -26,5 +26,6 @@ class PhotoListActivity : AppCompatActivity() {
     private fun initRecycler(photos: List<PhotoItem>) {
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         recyclerView.adapter = PhotoListRecyclerAdapter(photos)
+        recyclerView.addItemDecoration(GridItemDecoration(2, 16))
     }
 }
