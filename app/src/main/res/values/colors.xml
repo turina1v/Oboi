@@ -3,4 +3,19 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="switch_button_background">#F5F5F5</color>
+    <color name="switch_button_shadow">@android:color/black</color>
+    <color name="switch_button_shadow_gray">#455A64</color>
+    <color name="switch_button_red">@android:color/holo_red_dark</color>
+    <color name="switch_button_orange">@android:color/holo_orange_dark</color>
+    <color name="switch_button_yellow">#FDD835</color>
+    <color name="switch_button_green">@android:color/holo_green_dark</color>
+    <color name="switch_button_blue_light">@android:color/holo_blue_light</color>
+    <color name="switch_button_blue_dark">#0D47A1</color>
+    <color name="switch_button_purple">#673AB7</color>
+    <color name="switch_button_pink">#F48FB1</color>
+    <color name="switch_button_brown">#795548</color>
+    <color name="switch_button_gray">#BDBDBD</color>
+
 </resources>

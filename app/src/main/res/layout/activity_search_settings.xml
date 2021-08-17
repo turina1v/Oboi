@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.SearchSettingsActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="?attr/toolbarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/AppTheme.Toolbar"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/toolbar_settings" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/default_spacing"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:id="@+id/orientationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/line_margin"
+            android:text="@string/settings_orientation"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_size_header"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/orientationRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/line_margin"
+            app:layout_constraintTop_toBottomOf="@id/orientationText">
+
+            <RadioButton
+                android:id="@+id/orientationVerticalRadiobutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_orientation_vertical" />
+
+            <RadioButton
+                android:id="@+id/orientationHorizontalRadiobutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/line_half_margin"
+                android:text="@string/settings_orientation_horizontal" />
+
+            <RadioButton
+                android:id="@+id/orientationAllRadiobutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/line_half_margin"
+                android:layout_marginBottom="@dimen/line_margin"
+                android:checked="true"
+                android:text="@string/settings_orientation_all" />
+        </RadioGroup>
+
+        <View
+            android:id="@+id/dividerView1"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="@dimen/line_margin"
+            android:background="@android:color/black"
+            app:layout_constraintTop_toBottomOf="@id/orientationRadioGroup" />
+
+        <TextView
+            android:id="@+id/categoryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_spacing"
+            android:text="@string/settings_category"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_size_header"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dividerView1" />
+
+        <Spinner
+            android:id="@+id/categorySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/line_margin"
+            android:layout_marginBottom="@dimen/line_margin"
+            android:spinnerMode="dialog"
+            app:layout_constraintTop_toBottomOf="@id/categoryText" />
+
+        <View
+            android:id="@+id/dividerView2"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="@dimen/line_margin"
+            android:layout_marginBottom="@dimen/line_margin"
+            android:background="@android:color/black"
+            app:layout_constraintTop_toBottomOf="@id/categorySpinner" />
+
+        <TextView
+            android:id="@+id/colorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_spacing"
+            android:text="@string/settings_color"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_size_header"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dividerView2" />
+
+        <CheckBox
+            android:id="@+id/transparentCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/line_half_margin"
+            android:text="@string/settings_checkbox_transparent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/colorText" />
+
+        <CheckBox
+            android:id="@+id/grayscaleCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_spacing"
+            android:layout_marginBottom="@dimen/line_margin"
+            android:text="@string/settings_checkbox_grayscale"
+            app:layout_constraintStart_toEndOf="@id/transparentCheckbox"
+            app:layout_constraintTop_toTopOf="@id/transparentCheckbox" />
+
+        <FrameLayout
+            android:id="@+id/colorSwitchFrame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/line_margin"
+            app:layout_constraintTop_toBottomOf="@id/grayscaleCheckbox">
+
+            <include layout="@layout/layout_color_switch" />
+
+            <LinearLayout
+                android:id="@+id/colorBlurLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.6"
+                android:background="?android:colorBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical"
+                android:visibility="invisible" />
+        </FrameLayout>
+
+        <View
+            android:id="@+id/dividerView3"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="@dimen/default_spacing"
+            android:layout_marginBottom="@dimen/line_margin"
+            android:background="@android:color/black"
+            app:layout_constraintTop_toBottomOf="@id/colorSwitchFrame" />
+
+        <TextView
+            android:id="@+id/orderText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_spacing"
+            android:text="@string/settings_order"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_size_header"
+            app:layout_constraintTop_toBottomOf="@id/dividerView3" />
+
+        <CheckBox
+            android:id="@+id/editorsChoiceCheckbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/line_margin"
+            android:text="@string/settings_checkbox_editors_choice"
+            app:layout_constraintTop_toBottomOf="@id/orderText" />
+
+        <RadioGroup
+            android:id="@+id/orderRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/editorsChoiceCheckbox">
+
+            <RadioButton
+                android:id="@+id/orderPopularRadiobutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/line_half_margin"
+                android:checked="true"
+                android:text="@string/settings_order_popular" />
+
+            <RadioButton
+                android:id="@+id/orderLatestRadiobutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/line_half_margin"
+                android:layout_marginBottom="@dimen/line_margin"
+                android:text="@string/settings_order_latest" />
+        </RadioGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
