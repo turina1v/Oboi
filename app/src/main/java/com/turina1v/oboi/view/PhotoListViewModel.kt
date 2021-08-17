@@ -11,26 +11,32 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class PhotoListViewModel(private val useCase: GetPhotoListUseCase) : ViewModel() {
+class PhotoListViewModel(
+    private val useCase: GetPhotoListUseCase
+) : ViewModel() {
     private val disposables = CompositeDisposable()
+
+    var searchProps = SearchProps()
     private val photoListLiveData = MutableLiveData<List<PhotoItem>>()
     val photoListData: LiveData<List<PhotoItem>>
         get() = photoListLiveData
 
     init {
-        getPhotoList(SearchProps())
+        getPhotoList()
     }
 
-    fun getPhotoList(searchProps: SearchProps) {
-        disposables.add(useCase.execute(searchProps).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    photoListLiveData.postValue(it)
-                },
-                {
-                    Log.e("", it.toString())
-                }))
+    fun getPhotoList() {
+        disposables.add(
+            useCase.execute(searchProps).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        photoListLiveData.postValue(it)
+                    },
+                    {
+                        Log.e("", it.toString())
+                    })
+        )
     }
 
     override fun onCleared() {
