@@ -26,7 +26,7 @@ class PhotoNetworkClient {
         IMAGE_TYPE,
         searchProps.orientation,
         searchProps.category,
-        searchProps.colors,
+        searchProps.getColorsQuery(),
         searchProps.editorsChoice,
         searchProps.order,
         SAFE_SEARCH,
