@@ -3,12 +3,19 @@ package com.turina1v.oboi.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.turina1v.oboi.R
+import com.turina1v.oboi.data.network.JsonUtils
+import com.turina1v.oboi.domain.Category
 import com.turina1v.oboi.domain.SearchProps
 import kotlinx.android.synthetic.main.activity_search_settings.*
 import kotlinx.android.synthetic.main.layout_color_switch.*
+import java.util.*
 
 class SearchSettingsActivity : AppCompatActivity() {
 
@@ -31,6 +38,7 @@ class SearchSettingsActivity : AppCompatActivity() {
     private fun setupUi() {
         setUpOrientation()
         setUpColors()
+        setUpCategories()
     }
 
     private fun setUpOrientation() {
@@ -118,7 +126,7 @@ class SearchSettingsActivity : AppCompatActivity() {
             if (isChecked) editedSearchProps.colors.add(COLOR_BROWN)
             else editedSearchProps.colors.remove(COLOR_BROWN)
         }
-        grayscaleCheckbox.setOnCheckedChangeListener { buttonView, isChecked ->
+        grayscaleCheckbox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 editedSearchProps.colors.add(COLOR_GRAYSCALE)
                 colorBlurLayout.isVisible = true
@@ -126,6 +134,38 @@ class SearchSettingsActivity : AppCompatActivity() {
                 editedSearchProps.colors.remove(COLOR_GRAYSCALE)
                 colorBlurLayout.isVisible = false
             }
+        }
+    }
+
+    private fun setUpCategories() {
+        val gson = Gson()
+        val json =
+            if (Locale.getDefault().language == "ru") JsonUtils.loadJsonFromAsset(this, "categories_ru.json")
+            else JsonUtils.loadJsonFromAsset(this, "categories.json")
+        val listType = object : TypeToken<List<Category?>?>() {}.type
+        val categories = gson.fromJson<List<Category>>(json, listType)
+        val adapter = CategoryAdapter(this, R.layout.item_spinner_category, categories)
+        categorySpinner.adapter = adapter
+        val currentCategory = initialSearchProps?.category
+        currentCategory?.let { categoryQuery ->
+            val index = categories.indexOf(categories.firstOrNull { it.query == categoryQuery })
+            categorySpinner.setSelection(index)
+        }
+        categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val category = adapter.getItem(position)
+                category?.let {
+                    if (category.query == "all") editedSearchProps.category = null
+                    else editedSearchProps.category = category.query
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) { }
         }
     }
 
