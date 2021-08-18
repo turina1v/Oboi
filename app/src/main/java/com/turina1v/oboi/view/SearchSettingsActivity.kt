@@ -71,6 +71,7 @@ class SearchSettingsActivity : AppCompatActivity() {
                 COLOR_GRAY -> graySwitchButton.isChecked = true
                 COLOR_BLACK -> blackSwitchButton.isChecked = true
                 COLOR_BROWN -> brownSwitchButton.isChecked = true
+                COLOR_TRANSPARENT -> transparentCheckbox.isChecked = true
                 COLOR_GRAYSCALE -> {
                     grayscaleCheckbox.isChecked = true
                     colorBlurLayout.isVisible = true
@@ -125,6 +126,10 @@ class SearchSettingsActivity : AppCompatActivity() {
         brownSwitchButton.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) editedSearchProps.colors.add(COLOR_BROWN)
             else editedSearchProps.colors.remove(COLOR_BROWN)
+        }
+        transparentCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) editedSearchProps.colors.add(COLOR_TRANSPARENT)
+            else editedSearchProps.colors.remove(COLOR_TRANSPARENT)
         }
         grayscaleCheckbox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
