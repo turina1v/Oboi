@@ -10,7 +10,7 @@ data class SearchProps(
     var order: String? = null,
     var category: String? = null,
     val colors: MutableSet<String> = mutableSetOf(),
-    var editorsChoice: String? = null,
+    var editorsChoice: Boolean = false,
     var page: Int? = null
 ) : Parcelable {
 
@@ -26,6 +26,11 @@ data class SearchProps(
                 deleteCharAt(lastIndex)
             }
         }
+    }
+
+    fun getEditorsChoice(): String? {
+        return if (editorsChoice) editorsChoice.toString()
+        else null
     }
 
     fun copy(): SearchProps {
